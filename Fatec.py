@@ -17,7 +17,7 @@ def recomendacao_livro(consulta):
     descriptions = df['descricao'].fillna('')
     editoras = df['editora']
     autor = df['autor']
-
+    #sdsdsdsdsd
     # 5. Vetorizar descrições
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(descriptions)
