@@ -10,7 +10,6 @@ class StoryBrookeApp(ctk.CTk):
         # Pergunta
         self.label_question = ctk.CTkLabel(self, text="StoryBrooke", font=ctk.CTkFont(size=20, weight="bold"))
         self.label_question.pack(pady=(20, 10))
-        self.entry_book.bind("<Return>", lambda e: self.show_result())
         # Caixa de texto para o usuário digitar o livro
         self.entry_book = ctk.CTkEntry(self, width=350, font=ctk.CTkFont(size=16))
         self.entry_book.bind("<Return>", lambda e: self.show_result())
