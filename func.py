@@ -14,7 +14,7 @@ def recomendacao_livro(consulta):
 
     # 4. Vetores e colunas
     titles = df['titulo']
-    descriptions = df['descricao'].fillna('')
+    descriptions = df['descricao_trat'].fillna('')
     editoras = df['editora']
     autor = df['autor']
 
