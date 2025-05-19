@@ -1,6 +1,18 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+import nltk
+import string
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
+
+def tratamento_texto(texto):
+    texto = str(texto).lower()
+    texto = texto.translate(str.maketrans('', '', string.punctuation))
+    tokens = word_tokenize(texto)
+    stop_words = set(stopwords.words("english"))
+    tokens = [palavra for palavra in tokens if palavra not in stop_words]
+    return ' '.join(tokens)
 
 def recomendacao_livro(consulta):
 # 1. Carregar o dataset
@@ -11,6 +23,8 @@ def recomendacao_livro(consulta):
 
     # 3. Remover títulos duplicados (ignorando maiúsculas/minúsculas)
     df = df.drop_duplicates(subset='titulo_lower', keep='first').reset_index(drop=True)
+
+    df['descricao'] = df['descricao'].apply(tratamento_texto)
 
     # 4. Vetores e colunas
     titles = df['titulo']
@@ -49,5 +63,3 @@ def recomendacao_livro(consulta):
     return similar_books.sort_values(by='Similaridade', ascending=False)
 
     # 11. Mostrar resultado
-    
-    
