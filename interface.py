@@ -1,6 +1,10 @@
 import customtkinter as ctk
 from func import recomendacao_livro
+import nltk
 ctk.set_appearance_mode("light")
+
+nltk.download("punkt_tab")
+nltk.download("stopwords")
 
 class StoryBrookeApp(ctk.CTk):
     def __init__(self):
@@ -13,16 +17,12 @@ class StoryBrookeApp(ctk.CTk):
         # Caixa de texto para o usuário digitar o livro
         self.entry_book = ctk.CTkEntry(self, width=350, font=ctk.CTkFont(size=16))
         self.entry_book.pack(pady=(0, 20))
+        self.entry_book.bind("<Return>", lambda e: self.show_result())
         # Botão para mostrar resultado
         self.btn_show = ctk.CTkButton(self, text="Mostrar resultado", fg_color="#b5865b", hover_color="#cf9967", command=self.show_result)
         self.btn_show.pack(pady=(0, 15))
         self.table_frame = ctk.CTkFrame(self)
         self.table_frame.pack(pady=(10,20), padx=80, fill="both", expand=True)
-
-        # Caixa de texto para mostrar o resultado (multi-line)
-        # self.text_result = ctk.CTkTextbox(self, width=400, height=100, font=ctk.CTkFont(size=14))
-        # self.text_result.pack(pady=(0, 20))
-        
 
     def show_result(self):
         for c in self.table_frame.winfo_children():
@@ -54,9 +54,7 @@ class StoryBrookeApp(ctk.CTk):
         # Limpar o conteúdo anterior
         # Mostrar o texto na caixa de resultado
         similar = recomendacao_livro(self.entry_book.get())
-        # print(f"\n🔍 Livros mais semelhantes a: '{titles[idx]}'\n")
         print(similar.head(10).to_string(index=False))
-        self.text_result.insert("0.0", similar.head(10).to_string(index=False))
 if __name__ == "__main__":
     app = StoryBrookeApp()
     app.mainloop()
