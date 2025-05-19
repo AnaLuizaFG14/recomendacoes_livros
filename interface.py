@@ -13,7 +13,7 @@ class StoryBrookeApp(ctk.CTk):
         self.entry_book.bind("<Return>", lambda e: self.show_result())
         # Caixa de texto para o usuário digitar o livro
         self.entry_book = ctk.CTkEntry(self, width=350, font=ctk.CTkFont(size=16))
-        
+        self.entry_book.bind("<Return>", lambda e: self.show_result())
         self.entry_book.pack(pady=(0, 20))
         
         # Botão para mostrar resultado
